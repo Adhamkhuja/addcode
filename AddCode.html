@@ -1,0 +1,1415 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Addcode — Websayt, Telegram Bot va Mini App</title>
+  <meta
+    name="description"
+    content="Websayt, Telegram bot va Mini App yaratish xizmatlari."
+  />
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg: #070a13;
+      --card: #0d1220;
+      --card2: #11182a;
+      --text: #f5f7ff;
+      --muted: #8d96aa;
+      --primary: #6c63ff;
+      --primary2: #8b5cf6;
+      --border: rgba(255,255,255,.09);
+      --green: #22c55e;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Inter, Arial, sans-serif;
+      background:
+        radial-gradient(circle at 20% 10%, rgba(108,99,255,.15), transparent 30%),
+        radial-gradient(circle at 90% 30%, rgba(139,92,246,.12), transparent 25%),
+        var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button,
+    input,
+    textarea,
+    select {
+      font: inherit;
+    }
+
+    .container {
+      width: min(1180px, calc(100% - 40px));
+      margin: auto;
+    }
+
+    /* NAVBAR */
+
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 100;
+      backdrop-filter: blur(18px);
+      background: rgba(7,10,19,.72);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav {
+      height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      font-size: 23px;
+      font-weight: 800;
+      letter-spacing: -1px;
+    }
+
+    .logo span {
+      color: var(--primary);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+      color: #c9cede;
+      font-size: 14px;
+    }
+
+    .nav-links a:hover {
+      color: white;
+    }
+
+    .nav-btn {
+      padding: 11px 18px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--primary), var(--primary2));
+      font-weight: 700;
+      color: white;
+    }
+
+    .mobile-menu {
+      display: none;
+      font-size: 25px;
+      cursor: pointer;
+    }
+
+    /* HERO */
+
+    .hero {
+      min-height: 850px;
+      padding-top: 180px;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-content {
+      max-width: 760px;
+      text-align: center;
+      margin: auto;
+    }
+
+    .badge {
+      display: inline-flex;
+      padding: 8px 14px;
+      border: 1px solid rgba(108,99,255,.3);
+      background: rgba(108,99,255,.08);
+      border-radius: 100px;
+      color: #bdb8ff;
+      font-size: 13px;
+      margin-bottom: 25px;
+    }
+
+    h1 {
+      font-size: clamp(48px, 7vw, 82px);
+      line-height: .98;
+      letter-spacing: -4px;
+      margin-bottom: 28px;
+    }
+
+    h1 span {
+      background: linear-gradient(135deg, #8179ff, #b477ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero p {
+      max-width: 650px;
+      margin: auto;
+      color: var(--muted);
+      font-size: 18px;
+    }
+
+    .hero-actions {
+      display: flex;
+      justify-content: center;
+      gap: 13px;
+      margin-top: 35px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      border: none;
+      cursor: pointer;
+      padding: 15px 24px;
+      border-radius: 13px;
+      font-weight: 700;
+      transition: .2s;
+    }
+
+    .btn-primary {
+      color: white;
+      background: linear-gradient(135deg, var(--primary), var(--primary2));
+      box-shadow: 0 10px 40px rgba(108,99,255,.2);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn-secondary {
+      color: white;
+      background: rgba(255,255,255,.05);
+      border: 1px solid var(--border);
+    }
+
+    /* SERVICES */
+
+    section {
+      padding: 100px 0;
+    }
+
+    .section-heading {
+      text-align: center;
+      max-width: 650px;
+      margin: 0 auto 55px;
+    }
+
+    .section-heading .label {
+      color: #8b83ff;
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 12px;
+    }
+
+    .section-heading h2 {
+      font-size: 43px;
+      letter-spacing: -2px;
+      margin-bottom: 15px;
+    }
+
+    .section-heading p {
+      color: var(--muted);
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .service-card {
+      padding: 30px;
+      border: 1px solid var(--border);
+      background: linear-gradient(
+        145deg,
+        rgba(255,255,255,.045),
+        rgba(255,255,255,.015)
+      );
+      border-radius: 20px;
+      transition: .25s;
+      cursor: pointer;
+    }
+
+    .service-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(108,99,255,.4);
+    }
+
+    .service-icon {
+      width: 54px;
+      height: 54px;
+      display: grid;
+      place-items: center;
+      background: rgba(108,99,255,.12);
+      border-radius: 15px;
+      font-size: 25px;
+      margin-bottom: 20px;
+    }
+
+    .service-card h3 {
+      margin-bottom: 9px;
+      font-size: 20px;
+    }
+
+    .service-card p {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    /* PROCESS */
+
+    .process {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+    }
+
+    .process-item {
+      position: relative;
+      padding: 25px;
+      border-radius: 18px;
+      background: var(--card);
+      border: 1px solid var(--border);
+    }
+
+    .number {
+      color: #7770ff;
+      font-size: 13px;
+      font-weight: 800;
+      margin-bottom: 25px;
+    }
+
+    .process-item h3 {
+      margin-bottom: 8px;
+    }
+
+    .process-item p {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    /* ORDER */
+
+    .order-section {
+      padding-bottom: 120px;
+    }
+
+    .order-wrapper {
+      max-width: 850px;
+      margin: auto;
+      padding: 38px;
+      background: rgba(13,18,32,.8);
+      border: 1px solid var(--border);
+      border-radius: 25px;
+      box-shadow: 0 30px 100px rgba(0,0,0,.25);
+    }
+
+    .order-progress {
+      height: 5px;
+      background: #1a2132;
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 35px;
+    }
+
+    .progress {
+      height: 100%;
+      width: 33.33%;
+      background: linear-gradient(90deg, var(--primary), var(--primary2));
+      transition: .3s;
+    }
+
+    .step {
+      display: none;
+    }
+
+    .step.active {
+      display: block;
+      animation: fade .3s ease;
+    }
+
+    @keyframes fade {
+      from {
+        opacity: 0;
+        transform: translateY(5px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .step h3 {
+      font-size: 27px;
+      margin-bottom: 8px;
+    }
+
+    .step-description {
+      color: var(--muted);
+      margin-bottom: 25px;
+    }
+
+    .service-options {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .service-option {
+      padding: 20px;
+      border: 1px solid var(--border);
+      border-radius: 15px;
+      cursor: pointer;
+      transition: .2s;
+      background: rgba(255,255,255,.02);
+    }
+
+    .service-option:hover {
+      border-color: var(--primary);
+    }
+
+    .service-option.selected {
+      background: rgba(108,99,255,.12);
+      border-color: var(--primary);
+    }
+
+    .service-option strong {
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .service-option span {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .form-group {
+      margin-bottom: 18px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 14px;
+      margin-bottom: 8px;
+      color: #d9dcec;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      padding: 14px 15px;
+      color: white;
+      background: #080d18;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      outline: none;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      border-color: var(--primary);
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 120px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+    }
+
+    .step-buttons {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 25px;
+      gap: 12px;
+    }
+
+    .summary {
+      padding: 20px;
+      border-radius: 15px;
+      background: #080d18;
+      border: 1px solid var(--border);
+      margin-bottom: 20px;
+    }
+
+    .summary div {
+      display: flex;
+      justify-content: space-between;
+      padding: 9px 0;
+      border-bottom: 1px solid var(--border);
+      gap: 20px;
+    }
+
+    .summary div:last-child {
+      border: none;
+    }
+
+    .summary span {
+      color: var(--muted);
+    }
+
+    /* PORTFOLIO */
+
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .project {
+      min-height: 250px;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      background:
+        linear-gradient(135deg, rgba(108,99,255,.2), rgba(10,14,25,.8));
+      padding: 25px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+    }
+
+    .project:nth-child(2) {
+      background:
+        linear-gradient(135deg, rgba(0,180,255,.18), rgba(10,14,25,.8));
+    }
+
+    .project:nth-child(3) {
+      background:
+        linear-gradient(135deg, rgba(34,197,94,.15), rgba(10,14,25,.8));
+    }
+
+    .project small {
+      color: #a9b0c2;
+    }
+
+    .project h3 {
+      margin-top: 5px;
+    }
+
+    /* CTA */
+
+    .cta {
+      text-align: center;
+      padding: 70px 30px;
+      border-radius: 25px;
+      background:
+        radial-gradient(circle at center, rgba(108,99,255,.25), transparent 60%),
+        var(--card);
+      border: 1px solid var(--border);
+    }
+
+    .cta h2 {
+      font-size: 42px;
+      letter-spacing: -2px;
+      margin-bottom: 12px;
+    }
+
+    .cta p {
+      color: var(--muted);
+      margin-bottom: 25px;
+    }
+
+    /* FOOTER */
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 35px 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .footer-content {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    /* SUCCESS */
+
+    .success {
+      text-align: center;
+      display: none;
+    }
+
+    .success-icon {
+      width: 70px;
+      height: 70px;
+      display: grid;
+      place-items: center;
+      margin: 0 auto 20px;
+      border-radius: 50%;
+      background: rgba(34,197,94,.12);
+      color: var(--green);
+      font-size: 32px;
+    }
+
+    .success h3 {
+      font-size: 28px;
+      margin-bottom: 10px;
+    }
+
+    .success p {
+      color: var(--muted);
+    }
+
+    /* MOBILE */
+
+    @media (max-width: 850px) {
+      .nav-links {
+        display: none;
+      }
+
+      .mobile-menu {
+        display: block;
+      }
+
+      .services-grid,
+      .portfolio-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .process {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      h1 {
+        font-size: 54px;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        width: min(100% - 28px, 1180px);
+      }
+
+      .hero {
+        min-height: 720px;
+        padding-top: 130px;
+      }
+
+      h1 {
+        font-size: 43px;
+        letter-spacing: -2px;
+      }
+
+      .hero p {
+        font-size: 16px;
+      }
+
+      section {
+        padding: 70px 0;
+      }
+
+      .section-heading h2 {
+        font-size: 32px;
+      }
+
+      .services-grid,
+      .portfolio-grid,
+      .process,
+      .service-options,
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+
+      .order-wrapper {
+        padding: 22px;
+      }
+
+      .footer-content {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAVBAR -->
+  <header>
+    <div class="container nav">
+      <a href="#" class="logo">Add<span>Code</span></a>
+
+      <nav class="nav-links">
+        <a href="#services">Xizmatlar</a>
+        <a href="#portfolio">Portfolio</a>
+        <a href="#process">Jarayon</a>
+        <a href="#order" class="nav-btn">Buyurtma berish</a>
+      </nav>
+
+      <div class="mobile-menu">☰</div>
+    </div>
+  </header>
+
+
+  <!-- HERO -->
+  <main>
+
+    <section class="hero">
+      <div class="container">
+        <div class="hero-content">
+
+          <div class="badge">
+            🚀 Biznesingiz uchun raqamli yechimlar
+          </div>
+
+          <h1>
+            G‘oyangizni
+            <span>raqamli mahsulotga</span>
+            aylantiramiz
+          </h1>
+
+          <p>
+            Zamonaviy websaytlar, Telegram botlar va Mini App'larni
+            biznesingiz ehtiyojiga moslab ishlab chiqamiz.
+          </p>
+
+          <div class="hero-actions">
+            <a href="#order" class="btn btn-primary">
+              Loyihani boshlash →
+            </a>
+
+            <a href="#services" class="btn btn-secondary">
+              Xizmatlarni ko‘rish
+            </a>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- SERVICES -->
+    <section id="services">
+      <div class="container">
+
+        <div class="section-heading">
+          <div class="label">Xizmatlar</div>
+          <h2>Biz sizga nima kerakligini bilamiz</h2>
+          <p>
+            Kerakli xizmatni tanlang. Biz sizning talablaringiz asosida
+            optimal yechim ishlab chiqamiz.
+          </p>
+        </div>
+
+        <div class="services-grid">
+
+          <div class="service-card" onclick="selectService('Websayt')">
+            <div class="service-icon">🌐</div>
+            <h3>Websayt</h3>
+            <p>
+              Landing page, korporativ sayt, katalog va boshqa
+              zamonaviy web loyihalar.
+            </p>
+          </div>
+
+          <div class="service-card" onclick="selectService('Telegram Bot')">
+            <div class="service-icon">🤖</div>
+            <h3>Telegram Bot</h3>
+            <p>
+              Buyurtma, CRM, to‘lov, avtomatlashtirish va boshqa
+              funksiyalarga ega botlar.
+            </p>
+          </div>
+
+          <div class="service-card" onclick="selectService('Telegram Mini App')">
+            <div class="service-icon">📱</div>
+            <h3>Telegram Mini App</h3>
+            <p>
+              Telegram ichida ishlaydigan zamonaviy web ilovalar.
+            </p>
+          </div>
+
+          <div class="service-card" onclick="selectService('Internet do‘kon')">
+            <div class="service-icon">🛒</div>
+            <h3>Internet do‘kon</h3>
+            <p>
+              Mahsulot katalogi, savatcha, buyurtma va to‘lov tizimlari.
+            </p>
+          </div>
+
+          <div class="service-card" onclick="selectService('CRM / Admin panel')">
+            <div class="service-icon">📊</div>
+            <h3>CRM / Admin panel</h3>
+            <p>
+              Biznesingiz uchun boshqaruv paneli va avtomatlashtirish.
+            </p>
+          </div>
+
+          <div class="service-card" onclick="selectService('Boshqa loyiha')">
+            <div class="service-icon">⚡</div>
+            <h3>Boshqa loyiha</h3>
+            <p>
+              Maxsus g‘oyangiz bormi? Bizga batafsil yozib yuboring.
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- PROCESS -->
+    <section id="process">
+      <div class="container">
+
+        <div class="section-heading">
+          <div class="label">Qanday ishlaymiz?</div>
+          <h2>4 bosqichda loyiha</h2>
+          <p>
+            G‘oyadan tayyor mahsulotgacha bo‘lgan jarayon.
+          </p>
+        </div>
+
+        <div class="process">
+
+          <div class="process-item">
+            <div class="number">01</div>
+            <h3>Talablar</h3>
+            <p>
+              Siz loyiha haqida ma'lumot berasiz.
+            </p>
+          </div>
+
+          <div class="process-item">
+            <div class="number">02</div>
+            <h3>Rejalashtirish</h3>
+            <p>
+              Texnik topshiriq va loyiha rejasi tuziladi.
+            </p>
+          </div>
+
+          <div class="process-item">
+            <div class="number">03</div>
+            <h3>Ishlab chiqish</h3>
+            <p>
+              Dizayn va dasturlash ishlari amalga oshiriladi.
+            </p>
+          </div>
+
+          <div class="process-item">
+            <div class="number">04</div>
+            <h3>Topshirish</h3>
+            <p>
+              Tayyor loyiha test qilinib sizga topshiriladi.
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- PORTFOLIO -->
+    <section id="portfolio">
+      <div class="container">
+
+        <div class="section-heading">
+          <div class="label">Portfolio</div>
+          <h2>So‘nggi loyihalar</h2>
+          <p>
+            Bizneslar uchun ishlab chiqilgan raqamli mahsulotlar.
+          </p>
+        </div>
+
+        <div class="portfolio-grid">
+
+          <div class="project">
+            <small>WEB DESIGN</small>
+            <h3>Business Landing</h3>
+          </div>
+
+          <div class="project">
+            <small>TELEGRAM MINI APP</small>
+            <h3>Online Shop</h3>
+          </div>
+
+          <div class="project">
+            <small>TELEGRAM BOT</small>
+            <h3>Order System</h3>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ORDER -->
+    <section id="order" class="order-section">
+
+      <div class="container">
+
+        <div class="section-heading">
+          <div class="label">Buyurtma</div>
+          <h2>Loyihangiz haqida ayting</h2>
+          <p>
+            Formani to‘ldiring. Siz bilan tez orada bog‘lanamiz.
+          </p>
+        </div>
+
+
+        <div class="order-wrapper">
+
+          <div class="order-progress">
+            <div class="progress" id="progress"></div>
+          </div>
+
+
+          <!-- STEP 1 -->
+          <div class="step active" id="step1">
+
+            <h3>Qanday xizmat kerak?</h3>
+
+            <p class="step-description">
+              Loyihangiz uchun kerakli xizmatni tanlang.
+            </p>
+
+            <div class="service-options">
+
+              <div
+                class="service-option"
+                data-service="Websayt"
+                onclick="chooseService(this)"
+              >
+                <strong>🌐 Websayt</strong>
+                <span>Landing, korporativ sayt va boshqalar</span>
+              </div>
+
+              <div
+                class="service-option"
+                data-service="Telegram Bot"
+                onclick="chooseService(this)"
+              >
+                <strong>🤖 Telegram Bot</strong>
+                <span>Avtomatlashtirilgan Telegram bot</span>
+              </div>
+
+              <div
+                class="service-option"
+                data-service="Telegram Mini App"
+                onclick="chooseService(this)"
+              >
+                <strong>📱 Telegram Mini App</strong>
+                <span>Telegram ichidagi web ilova</span>
+              </div>
+
+              <div
+                class="service-option"
+                data-service="Internet do‘kon"
+                onclick="chooseService(this)"
+              >
+                <strong>🛒 Internet do‘kon</strong>
+                <span>Online savdo platformasi</span>
+              </div>
+
+              <div
+                class="service-option"
+                data-service="CRM / Admin panel"
+                onclick="chooseService(this)"
+              >
+                <strong>📊 CRM / Admin panel</strong>
+                <span>Biznes boshqaruv tizimi</span>
+              </div>
+
+              <div
+                class="service-option"
+                data-service="Boshqa loyiha"
+                onclick="chooseService(this)"
+              >
+                <strong>⚡ Boshqa</strong>
+                <span>Maxsus loyiha</span>
+              </div>
+
+            </div>
+
+            <div class="step-buttons">
+              <div></div>
+
+              <button class="btn btn-primary" onclick="nextStep(2)">
+                Davom etish →
+              </button>
+            </div>
+
+          </div>
+
+
+          <!-- STEP 2 -->
+          <div class="step" id="step2">
+
+            <h3>Loyiha haqida</h3>
+
+            <p class="step-description">
+              Loyiha haqida imkon qadar batafsil yozing.
+            </p>
+
+            <div class="form-group">
+              <label>Loyiha nomi</label>
+              <input
+                type="text"
+                id="projectName"
+                placeholder="Masalan: Online do‘kon"
+              />
+            </div>
+
+            <div class="form-group">
+              <label>Loyiha haqida</label>
+              <textarea
+                id="description"
+                placeholder="Saytda qanday funksiyalar bo‘lishi kerak?"
+              ></textarea>
+            </div>
+
+            <div class="form-row">
+
+              <div class="form-group">
+                <label>Loyiha budjeti</label>
+
+                <select id="budget">
+                  <option value="">Tanlang</option>
+                  <option>$100 – $300</option>
+                  <option>$300 – $500</option>
+                  <option>$500 – $1000</option>
+                  <option>$1000 – $2000</option>
+                  <option>$2000+</option>
+                  <option>Bilmayman</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label>Topshirilish muddati</label>
+
+                <select id="deadline">
+                  <option value="">Tanlang</option>
+                  <option>1 hafta</option>
+                  <option>2 hafta</option>
+                  <option>1 oy</option>
+                  <option>1–2 oy</option>
+                  <option>Muddat muhim emas</option>
+                </select>
+              </div>
+
+            </div>
+
+            <div class="step-buttons">
+
+              <button
+                class="btn btn-secondary"
+                onclick="nextStep(1)"
+              >
+                ← Orqaga
+              </button>
+
+              <button
+                class="btn btn-primary"
+                onclick="nextStep(3)"
+              >
+                Davom etish →
+              </button>
+
+            </div>
+
+          </div>
+
+
+          <!-- STEP 3 -->
+          <div class="step" id="step3">
+
+            <h3>Aloqa ma’lumotlari</h3>
+
+            <p class="step-description">
+              Buyurtma bo‘yicha siz bilan bog‘lanishimiz uchun.
+            </p>
+
+            <div class="form-group">
+              <label>Ismingiz</label>
+
+              <input
+                type="text"
+                id="name"
+                placeholder="Ismingiz"
+              />
+            </div>
+
+            <div class="form-group">
+              <label>Telegram username</label>
+
+              <input
+                type="text"
+                id="telegram"
+                placeholder="@username"
+              />
+            </div>
+
+            <div class="form-group">
+              <label>Telefon raqam</label>
+
+              <input
+                type="tel"
+                id="phone"
+                placeholder="+998 90 123 45 67"
+              />
+            </div>
+
+            <div class="summary">
+
+              <div>
+                <span>Xizmat</span>
+                <strong id="summaryService">—</strong>
+              </div>
+
+              <div>
+                <span>Loyiha</span>
+                <strong id="summaryProject">—</strong>
+              </div>
+
+              <div>
+                <span>Budjet</span>
+                <strong id="summaryBudget">—</strong>
+              </div>
+
+            </div>
+
+            <div class="step-buttons">
+
+              <button
+                class="btn btn-secondary"
+                onclick="nextStep(2)"
+              >
+                ← Orqaga
+              </button>
+
+              <button
+                class="btn btn-primary"
+                onclick="submitOrder()"
+              >
+                🚀 Buyurtmani yuborish
+              </button>
+
+            </div>
+
+          </div>
+
+
+          <!-- SUCCESS -->
+          <div class="success" id="success">
+
+            <div class="success-icon">
+              ✓
+            </div>
+
+            <h3>Buyurtma yuborildi!</h3>
+
+            <p>
+              Ma’lumotlaringiz qabul qilindi.
+              Tez orada siz bilan bog‘lanamiz.
+            </p>
+
+            <br>
+
+            <button
+              class="btn btn-primary"
+              onclick="location.reload()"
+            >
+              Yangi buyurtma
+            </button>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- CTA -->
+    <section>
+
+      <div class="container">
+
+        <div class="cta">
+
+          <h2>G‘oyangiz bormi?</h2>
+
+          <p>
+            Bizga loyihangiz haqida ayting —
+            qolganini biz hal qilamiz.
+          </p>
+
+          <a href="#order" class="btn btn-primary">
+            Loyiha buyurtma qilish →
+          </a>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- FOOTER -->
+  <!-- EMAIL SUBMISSION FORM (FormSubmit) -->
+  <form
+    id="emailOrderForm"
+    action="https://formsubmit.co/adxamxojaxikmatillayev@gmail.com"
+    method="POST"
+    target="emailSubmitFrame"
+    style="display:none;"
+  >
+    <input type="hidden" name="_subject" value="AddCode — Yangi buyurtma">
+    <input type="hidden" name="_template" value="table">
+    <input type="hidden" name="_captcha" value="false">
+    <input type="hidden" name="_next" value="https://formsubmit.co/thanks">
+
+    <input type="hidden" name="Xizmat" id="emailService">
+    <input type="hidden" name="Loyiha" id="emailProject">
+    <input type="hidden" name="Tavsif" id="emailDescription">
+    <input type="hidden" name="Budjet" id="emailBudget">
+    <input type="hidden" name="Muddat" id="emailDeadline">
+    <input type="hidden" name="Ism" id="emailName">
+    <input type="hidden" name="Telegram" id="emailTelegram">
+    <input type="hidden" name="Telefon" id="emailPhone">
+    <input type="hidden" name="Sana" id="emailDate">
+  </form>
+
+  <iframe name="emailSubmitFrame" style="display:none;"></iframe>
+
+  <footer>
+
+    <div class="container footer-content">
+
+      <div>
+        © 2026 AddCode. Barcha huquqlar himoyalangan.
+      </div>
+
+      <div>
+        Websayt · Telegram Bot · Mini App
+      </div>
+
+    </div>
+
+  </footer>
+
+
+  <script>
+
+    let selectedService = "";
+
+    /*
+      Xizmat tanlash
+    */
+    function chooseService(element) {
+
+      document
+        .querySelectorAll(".service-option")
+        .forEach(item => {
+          item.classList.remove("selected");
+        });
+
+      element.classList.add("selected");
+
+      selectedService = element.dataset.service;
+    }
+
+
+    /*
+      Services sectiondan buyurtmaga o'tish
+    */
+    function selectService(service) {
+
+      selectedService = service;
+
+      document.getElementById("order").scrollIntoView({
+        behavior: "smooth"
+      });
+
+      setTimeout(() => {
+
+        document
+          .querySelectorAll(".service-option")
+          .forEach(item => {
+
+            item.classList.remove("selected");
+
+            if (item.dataset.service === service) {
+              item.classList.add("selected");
+            }
+
+          });
+
+      }, 500);
+    }
+
+
+    /*
+      Step navigation
+    */
+    function nextStep(stepNumber) {
+
+      if (stepNumber === 2 && !selectedService) {
+        alert("Iltimos, xizmat turini tanlang.");
+        return;
+      }
+
+      if (stepNumber === 3) {
+
+        const projectName =
+          document.getElementById("projectName").value.trim();
+
+        const description =
+          document.getElementById("description").value.trim();
+
+        if (!projectName) {
+          alert("Iltimos, loyiha nomini kiriting.");
+          return;
+        }
+
+        if (!description) {
+          alert("Iltimos, loyiha haqida yozing.");
+          return;
+        }
+
+        document.getElementById("summaryService")
+          .textContent = selectedService;
+
+        document.getElementById("summaryProject")
+          .textContent = projectName;
+
+        document.getElementById("summaryBudget")
+          .textContent =
+            document.getElementById("budget").value || "Ko‘rsatilmagan";
+      }
+
+      document
+        .querySelectorAll(".step")
+        .forEach(step => step.classList.remove("active"));
+
+      document
+        .getElementById("step" + stepNumber)
+        .classList.add("active");
+
+      document.getElementById("progress").style.width =
+        (stepNumber * 33.33) + "%";
+    }
+
+
+    /*
+      Buyurtmani yuborish
+    */
+    function submitOrder() {
+
+      const name =
+        document.getElementById("name").value.trim();
+
+      const telegram =
+        document.getElementById("telegram").value.trim();
+
+      const phone =
+        document.getElementById("phone").value.trim();
+
+      if (!name) {
+        alert("Iltimos, ismingizni kiriting.");
+        return;
+      }
+
+      if (!telegram && !phone) {
+        alert("Telegram username yoki telefon raqam kiriting.");
+        return;
+      }
+
+      const project =
+        document.getElementById("projectName").value.trim();
+
+      const description =
+        document.getElementById("description").value.trim();
+
+      const budget =
+        document.getElementById("budget").value;
+
+      const deadline =
+        document.getElementById("deadline").value;
+
+      /*
+        FormSubmit orqali buyurtmani emailga yuboramiz.
+        Dizayn va mavjud forma ko'rinishi o'zgarmaydi.
+      */
+
+      const emailForm = document.getElementById("emailOrderForm");
+
+      document.getElementById("emailService").value = selectedService;
+      document.getElementById("emailProject").value = project;
+      document.getElementById("emailDescription").value = description;
+      document.getElementById("emailBudget").value = budget || "Ko‘rsatilmagan";
+      document.getElementById("emailDeadline").value = deadline || "Ko‘rsatilmagan";
+      document.getElementById("emailName").value = name;
+      document.getElementById("emailTelegram").value = telegram || "Kiritilmagan";
+      document.getElementById("emailPhone").value = phone || "Kiritilmagan";
+      document.getElementById("emailDate").value =
+        new Date().toLocaleString("uz-UZ");
+
+      document.getElementById("step3").style.display = "none";
+      document.getElementById("success").style.display = "block";
+      document.getElementById("progress").style.width = "100%";
+
+      emailForm.submit();
+    }
+
+
+    /*
+      Mobile menu
+    */
+
+    document
+      .querySelector(".mobile-menu")
+      .addEventListener("click", () => {
+
+        const nav = document.querySelector(".nav-links");
+
+        if (nav.style.display === "flex") {
+          nav.style.display = "none";
+        } else {
+
+          nav.style.display = "flex";
+
+          nav.style.position = "absolute";
+          nav.style.top = "76px";
+          nav.style.left = "0";
+          nav.style.width = "100%";
+          nav.style.padding = "20px";
+          nav.style.flexDirection = "column";
+          nav.style.background = "#090d18";
+          nav.style.borderBottom =
+            "1px solid rgba(255,255,255,.09)";
+        }
+
+      });
+
+  </script>
+
+</body>
+</html>
